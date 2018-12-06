@@ -8,18 +8,20 @@
        $(document).ready(function() {
          var url = 'https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername=tseries&fields=items/statistics/subscriberCount&key=AIzaSyCio_-QJ74DEF5Wp1ZGvVKw7eaKQxuUqiQ';
          var url2 = 'https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername=pewdiepie&fields=items/statistics/subscriberCount&key=AIzaSyCio_-QJ74DEF5Wp1ZGvVKw7eaKQxuUqiQ';
-
+         var pewdie=0, tser=0, diff=0;
         setInterval(function() {
-          
+
           $.getJSON(url).done(function(data){
                $('#subs-c').text(data.items[0].statistics.subscriberCount);
+               tser=parseInt(data.items[0].statistics.subscriberCount)
             });
 
             $.getJSON(url2).done(function(data2){
                  $('#subs-p').text(data2.items[0].statistics.subscriberCount);
+                 pewdie=parseInt(data2.items[0].statistics.subscriberCount)
               });
-
-          #('#subs-d').text()
+          diff=pewdie-tser;
+          $('#subs-d').text(diff);
        },1000);
 });
 
@@ -28,6 +30,6 @@
   <body>
       Tseries Subscribers: <div id="subs-c"></div><br><br>
       Pewdiepie Subscribers: <div id="subs-p"></div><br><br>
-      Difference: <div id="subs-d"></div>
+      Tseries Needs: <span id="subs-d"></span><span> More Subscribers</span>
   </body>
 </html>
